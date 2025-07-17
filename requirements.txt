@@ -1,0 +1,23 @@
+# For environment variables
+python-dotenv
+
+# Core LangChain and Gemini integration for embeddings
+langchain
+langchain-core
+langchain-google-genai
+
+# Vector database
+chromadb
+
+# Document loaders
+langchain-community
+pypdf
+docx2txt
+unstructured[md,email]
+
+# Tokenizer used by LangChain for text splitting
+tiktoken
+
+# For building the API in Phase 1, Week 4
+fastapi
+uvicorn[standard]
