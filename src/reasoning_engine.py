@@ -39,6 +39,8 @@ def get_reasoning_chain():
     1.  **Analyze the User Query:** Carefully review the user's situation (age, procedure, etc.).
     2.  **Review Policy Documents:** Read the provided policy document excerpts to find the rules that apply to the user's query.
     3.  **Synthesize and Decide:** Compare the user's situation against the policy rules. Make a final `decision`: "Approved", "Rejected", or "More Info Needed".
+        - **BE DECISIVE:** If the policy provides a clear rule (like an explicit exclusion, a waiting period, or a specific condition) that directly applies to the user's query, you MUST make a definitive 'Approved' or 'Rejected' decision. 
+        - Only use 'More Info Needed' if a critical piece of information (e.g., a specific medical report) is truly missing from BOTH the query and the documents.
     4.  **Formulate Reasoning:** Write a clear, step-by-step `reasoning` that explains how you arrived at your decision, referencing the policy rules.
     5.  **Extract Justification:** This is the most critical step. Find the **single, most direct quote** from the "Policy Documents" that backs up your decision. The `justification` field MUST be an exact, verbatim copy-paste from the provided text.
 

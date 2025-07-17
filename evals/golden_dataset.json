@@ -1,0 +1,92 @@
+[
+  {
+    "question_id": "Q1",
+    "question": "I just bought this policy last month and have been diagnosed with diabetes. Am I covered for treatment?",
+    "expected_answer": {
+      "decision": "Rejected",
+      "reasoning": "The user is asking about coverage for a pre-existing disease (diabetes) diagnosed after the policy start date. The policy has a 36-month waiting period for pre-existing diseases, so treatment would not be covered in the first month.",
+      "justification": "Any Pre-existing Diseases will not be covered during the first 36 months of continuous coverage from the date of inception of the first Policy with Us."
+    }
+  },
+  {
+    "question_id": "Q2",
+    "question": "I want to get a cosmetic nose job. Will my policy cover it?",
+    "expected_answer": {
+      "decision": "Rejected",
+      "reasoning": "The user is asking about cosmetic surgery. The policy explicitly excludes expenses for cosmetic or plastic surgery unless it is for reconstruction following an accident, burn, or cancer.",
+      "justification": "Expenses for cosmetic or plastic surgery or any treatment to change appearance unless for reconstruction following an Accident, Burn(s) or Cancer or as part of Medically Necessary Treatment."
+    }
+  },
+  {
+    "question_id": "Q3",
+    "question": "I have been hospitalized for 3 days due to a severe case of pneumonia. Is the cost of my room and treatment covered?",
+    "expected_answer": {
+      "decision": "Approved",
+      "reasoning": "The user was hospitalized for more than 24 hours for a medical illness (pneumonia). This falls under the definition of In-patient Hospitalisation, which is a primary coverage of the policy.",
+      "justification": "In-patient Hospitalisation means admission in a Hospital for a minimum period of 24 consecutive hours of hospitalisation."
+    }
+  },
+  {
+    "question_id": "Q4",
+    "question": "My doctor has recommended bariatric surgery for weight loss. My BMI is 42. Is this covered?",
+    "expected_answer": {
+      "decision": "Approved",
+      "reasoning": "The user is asking about bariatric surgery with a BMI of 42. The policy covers this procedure if the BMI is greater than or equal to 40. The user meets this condition.",
+      "justification": "Expenses related to the surgical treatment of obesity that does not fulfil all the below conditions: ... e. Body Mass Index (BMI); i. greater than or equal to 40"
+    }
+  },
+  {
+    "question_id": "Q5",
+    "question": "I need a new pair of glasses. Can I claim the cost of the eye examination and the contact lenses?",
+    "expected_answer": {
+      "decision": "Rejected",
+      "reasoning": "The user is asking about coverage for an eye examination and contact lenses. The policy's 'Out-patient benefit' section explicitly lists prescribed glasses and contact lenses, including eye examinations, as not being covered.",
+      "justification": "Prescribed glasses and contact lenses including eye examination"
+    }
+  },
+  {
+    "question_id": "Q6",
+    "question": "I was injured while attempting to harm myself. Do I get coverage for the resulting hospital stay?",
+    "expected_answer": {
+      "decision": "Rejected",
+      "reasoning": "The user is asking about coverage for a self-inflicted injury. The policy has an exclusion for any claims arising from intentional self-injury.",
+      "justification": "Intentional self-injury (including but not limited to the use or misuse of any intoxicating drugs or alcohol)."
+    }
+  },
+  {
+    "question_id": "Q7",
+    "question": "My mother needs cataract surgery but she will be discharged the same day. Is this procedure covered?",
+    "expected_answer": {
+      "decision": "Approved",
+      "reasoning": "The user is asking about cataract surgery that does not require a 24-hour hospitalization. Cataract surgery is listed under the covered Day Care Treatments, which do not require a 24-hour stay.",
+      "justification": "Cataract Surgery"
+    }
+  },
+  {
+    "question_id": "Q8",
+    "question": "Does my policy include an annual health check-up?",
+    "expected_answer": {
+      "decision": "Approved",
+      "reasoning": "The user is asking about an annual health check-up. The policy includes a 'Health Assessment' as a Value Added Service, which provides for a health assessment during the policy period.",
+      "justification": "Health Assessment: We will provide for a health assessment of each Insured during the Policy Period through Our empanelled service provider."
+    }
+  },
+  {
+    "question_id": "Q9",
+    "question": "I need a planned surgery next week. What do I need to do?",
+    "expected_answer": {
+      "decision": "More Info Needed",
+      "reasoning": "For a planned surgery (planned hospitalization), the policy requires the user to seek pre-authorization from the company at least 48 hours before the admission. The decision is contingent on this procedure being followed.",
+      "justification": "For planned Hospitalisation, the Insured must seek Pre-authorisation from Us at least 48 hours before the proposed date of admission."
+    }
+  },
+  {
+    "question_id": "Q10",
+    "question": "Is treatment taken at a health spa for stress relief covered by my insurance?",
+    "expected_answer": {
+      "decision": "Rejected",
+      "reasoning": "The user is asking about treatment at a health spa for stress relief. The policy explicitly excludes coverage for 'Rest Cure, rehabilitation and respite care', which covers this type of treatment.",
+      "justification": "Rest Cure, rehabilitation and respite care"
+    }
+  }
+]
