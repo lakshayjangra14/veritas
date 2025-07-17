@@ -7,6 +7,7 @@ from typing import List
 
 # Import from our other modules
 from src.query_parser import get_query_parser_chain, ParsedQuery
+from src.reasoning_engine import get_reasoning_chain, FinalAnswer
 
 # LangChain and Chroma imports
 from langchain_chroma import Chroma
@@ -27,20 +28,13 @@ PERSIST_DIRECTORY = os.path.join(PROJECT_ROOT, "db")
 class Query(BaseModel):
     text: str
 
-class DocumentResponse(BaseModel):
-    page_content: str
-    metadata: dict
-
-class ApiResponse(BaseModel):
-    parsed_query: ParsedQuery
-    retrieved_docs: List[DocumentResponse]
-
 retriever = None
 parser_chain = None
+reasoning_chain = None
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global retriever, parser_chain
+    global retriever, parser_chain, reasoning_chain
     if not os.path.exists(PERSIST_DIRECTORY):
         raise FileNotFoundError(f"Chroma database not found at {PERSIST_DIRECTORY}")
     
@@ -51,19 +45,22 @@ async def lifespan(app: FastAPI):
     retriever = db.as_retriever(search_kwargs={"k": 3})
     
     parser_chain = get_query_parser_chain()
+
+    reasoning_chain = get_reasoning_chain()
     
     print("--- Models and database loaded successfully. ---")
     yield
     print("--- Shutting down the application... ---")
     retriever = None
     parser_chain = None
+    reasoning_chain = None
 
 app = FastAPI(lifespan=lifespan)
 
 # --- API Endpoints ---
-@app.post("/query", response_model=ApiResponse)
+@app.post("/query", response_model=FinalAnswer)
 async def search_documents(query: Query):
-    if not retriever or not parser_chain:
+    if retriever is None or parser_chain is None or reasoning_chain is None:
         raise RuntimeError("Models are not initialized.")
     
     print(f"Received query: {query.text}")
@@ -72,10 +69,18 @@ async def search_documents(query: Query):
     print(f"Parsed query: {parsed_query}")
 
     relevant_docs = retriever.invoke(query.text)
+    retrieved_docs_txt = "\n\n---\n\n".join(
+        [f"Source: {doc.metadata.get('source', 'N/A')}, Page: {doc.metadata.get('page', 'N/A')}\n\n{doc.page_content}" for doc in relevant_docs]
+    )
+    print(f"Retrieved documents: {retrieved_docs_txt[:500]}...")  
     
-    response_docs = [DocumentResponse(page_content=doc.page_content, metadata=doc.metadata) for doc in relevant_docs]
+    final_answer = reasoning_chain.invoke({
+        "parsed_query": str(parsed_query),
+        "retrieved_docs_text": retrieved_docs_txt
+    })
 
-    return ApiResponse(parsed_query=parsed_query, retrieved_docs=response_docs)
+    print(f"Final answer: {final_answer}")
+    return final_answer
 
 @app.get("/health")
 def health_check():
