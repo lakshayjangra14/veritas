@@ -1,7 +1,7 @@
 import os 
 import glob
 from dotenv import load_dotenv
-from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter  
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_community.vectorstores import Chroma
@@ -13,8 +13,10 @@ if os.getenv("GOOGLE_API_KEY") is None:
     print("GOOGLE_API_KEY environment variable is not set.")
     exit()
 
-SOURCE_DOCS_DIR = "/home/alxmassy/dev/veritas/data/source_documents"
-PERSIST_DIRECTORY = "db"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
+SOURCE_DOCS_DIR = os.path.join(PROJECT_ROOT, "data", "source_documents")
+PERSIST_DIRECTORY = os.path.join(PROJECT_ROOT, "db")
 
 def load_documents(source_dir: str) -> list:
     """Load documents from the specified directory."""
@@ -55,7 +57,6 @@ def process_and_store_documents():
         embedding=embeddings,
         persist_directory=PERSIST_DIRECTORY,
     )
-    db.persist()
 
     print("Ingestion Complete!")
     print(f"Vector store is saved in {PERSIST_DIRECTORY}.")
