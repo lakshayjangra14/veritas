@@ -43,7 +43,7 @@ def process_and_store_documents():
         return
     
     print("Splitting documents into chunks...")
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=200, length_function=len)
     text = text_splitter.split_documents(documents)
     print(f"Split into {len(text)} chunks.")
 
